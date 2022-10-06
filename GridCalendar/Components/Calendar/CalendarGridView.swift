@@ -65,7 +65,7 @@ struct CalendarGridView: View {
     
     var body: some View {
         if #available(iOS 16.0, *) {
-            return Grid {
+            return Grid(verticalSpacing: 10) {
                 GridRow {
                     Text("日")
                         .foregroundColor(.red)
@@ -79,6 +79,14 @@ struct CalendarGridView: View {
                 }
                 ForEach(calendarRows, id: \.self) { weekList in
                     GridRow {
+                        if leadingEmptyCell(weekList: weekList) {
+                            let firstRowEmptyCount: Int = 7 - weekList.count
+                            ForEach(1 ... firstRowEmptyCount, id: \.self) { _ in
+                                Color.clear
+                                    .gridCellUnsizedAxes([.horizontal, .vertical])
+                            }
+                        }
+                        
                         ForEach(weekList, id: \.self) { dayNumber in
                             Text(dayNumber)
                         }
@@ -90,6 +98,9 @@ struct CalendarGridView: View {
         }
     }
     
+    func leadingEmptyCell(weekList: [String]) -> Bool {
+        weekList[0] == "1" && weekList.count < 7
+    }
 }
 
 struct CalendarGridView_Previews: PreviewProvider {
