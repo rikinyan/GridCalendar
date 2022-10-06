@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A066DA7D28EF4339007B50F8 /* CalendarGridCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A066DA7C28EF4339007B50F8 /* CalendarGridCellView.swift */; };
 		A094622728E97F9900008F64 /* GridCalendarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A094622628E97F9900008F64 /* GridCalendarApp.swift */; };
 		A094622928E97F9900008F64 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A094622828E97F9900008F64 /* ContentView.swift */; };
 		A094622B28E97F9B00008F64 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A094622A28E97F9B00008F64 /* Assets.xcassets */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A066DA7C28EF4339007B50F8 /* CalendarGridCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarGridCellView.swift; sourceTree = "<group>"; };
 		A094622328E97F9900008F64 /* GridCalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GridCalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A094622628E97F9900008F64 /* GridCalendarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCalendarApp.swift; sourceTree = "<group>"; };
 		A094622828E97F9900008F64 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				A094623628E98DE000008F64 /* CalendarGridView.swift */,
+				A066DA7C28EF4339007B50F8 /* CalendarGridCellView.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -156,6 +159,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A066DA7D28EF4339007B50F8 /* CalendarGridCellView.swift in Sources */,
 				A094623728E98DE000008F64 /* CalendarGridView.swift in Sources */,
 				A094622928E97F9900008F64 /* ContentView.swift in Sources */,
 				A094622728E97F9900008F64 /* GridCalendarApp.swift in Sources */,

@@ -10,6 +10,17 @@ import SwiftUI
 // CalendarのidentifierはEnvironmentObjectにしたいね。
 
 extension Calendar {
+    enum Weekday: Int {
+        case Sun = 1
+        case Mon
+        case Tus
+        case Wed
+        case Thu
+        case Fri
+        case Sat
+        case none
+    }
+    
     func monthDayCount(year: Int, month: Int) -> Int? {
         var nextMonthDate = DateComponents(calendar: self, year: year, month: month + 1, day: 1)
         // 0にすることで、求めたい月の最終日になる。
@@ -18,6 +29,10 @@ extension Calendar {
         guard let date = date(from: nextMonthDate) else { return nil }
         return component(.day, from: date)
     }
+    
+    func weekday(date: Date) -> Weekday {
+        Weekday.init(rawValue: self.component(.weekday, from: date)) ?? .none
+    }
 }
 
 struct CalendarGridView: View {
@@ -25,7 +40,7 @@ struct CalendarGridView: View {
     let month: Int
     
     private let dayCount: Int
-    private let calendar = Calendar(identifier: .japanese)
+    private let calendar = Calendar(identifier: .gregorian)
     
     init(year: Int, month: Int) {
         self.year = year
@@ -35,22 +50,23 @@ struct CalendarGridView: View {
     }
     
     @available(iOS 16.0, *)
-    var calendarRows: [[String]] {
-        var dateListSeparatedByTheWeek: [[String]] = []
+    var calendarRows: [[(dayCount: Int, weekday: Calendar.Weekday)]] {
+        var dateListSeparatedByTheWeek: [[(Int, Calendar.Weekday)]] = []
         
-        var insertedWeekList: [String] = []
+        var insertedWeekList: [(Int, Calendar.Weekday)] = []
         (1...dayCount).forEach { dayNumber in
-            let text = "\(dayNumber)"
-            insertedWeekList.append(text)
-            
             // 土曜日であることを確認
             let date = calendar.date(from: DateComponents(
-                year: year,
+                calendar: calendar,
+                year: 2022,
                 month: month,
                 day: dayNumber
             )) ?? Date()
+            let weekday = calendar.weekday(date: date)
             
-            if Calendar(identifier: .japanese).component(.weekday, from: date) == 6 {
+            insertedWeekList.append((dayNumber, weekday))
+            
+            if weekday == .Sat {
                 dateListSeparatedByTheWeek.append(insertedWeekList)
                 insertedWeekList = []
             }
@@ -77,7 +93,7 @@ struct CalendarGridView: View {
                     Text("土")
                         .foregroundColor(.blue)
                 }
-                ForEach(calendarRows, id: \.self) { weekList in
+                ForEach(calendarRows, id: \[(Int, Calendar.Weekday)][0].0) { weekList in
                     GridRow {
                         if leadingEmptyCell(weekList: weekList) {
                             let firstRowEmptyCount: Int = 7 - weekList.count
@@ -87,8 +103,8 @@ struct CalendarGridView: View {
                             }
                         }
                         
-                        ForEach(weekList, id: \.self) { dayNumber in
-                            Text(dayNumber)
+                        ForEach(weekdayNumberGridRowCells(weekList: weekList), id: \.text) { cell in
+                            cell
                         }
                     }
                 }
@@ -98,8 +114,21 @@ struct CalendarGridView: View {
         }
     }
     
-    func leadingEmptyCell(weekList: [String]) -> Bool {
-        weekList[0] == "1" && weekList.count < 7
+    func leadingEmptyCell(weekList: [(Int, Calendar.Weekday)]) -> Bool {
+        weekList[0].0 == 1 && weekList.count < 7
+    }
+    
+    func weekdayNumberGridRowCells(weekList: [(Int, Calendar.Weekday)]) -> [CalendarGridCellView] {
+        weekList.compactMap { dayNumber, weekday in
+            var textColor = Color.black
+            if weekday == .Sun {
+                textColor = .red
+            } else if weekday == .Sat {
+                textColor = .blue
+            }
+            
+            return CalendarGridCellView(text: String(dayNumber), textColor: textColor, didTap: {})
+        }
     }
 }
 
