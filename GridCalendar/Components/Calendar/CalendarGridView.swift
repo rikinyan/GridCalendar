@@ -71,13 +71,13 @@ extension Calendar {
 struct CalendarGridView: View {
     let year: Int
     let month: Int
-    @State var parentWidth: CGFloat
+    let cellWidth = floor(300 / 7)
+    let cellHeight = 30.0
     
     private let calendar = Calendar(identifier: .gregorian)
         
     var body: some View {
         if #available(iOS 16.0, *) {
-            let columnWidth = floor(parentWidth / 7)
             
             return Grid(horizontalSpacing: 0, verticalSpacing: 10) {
                 GridRow {
@@ -92,8 +92,7 @@ struct CalendarGridView: View {
                         .foregroundColor(.blue)
                 }
                 .gridCellUnsizedAxes([.vertical, .horizontal])
-                .frame(width: columnWidth)
-                .background(Color.cyan)
+                .frame(width: cellWidth)
                 
                 ForEach(calendar.calendarRows(year: year, month: month), id: \[(Int, Calendar.Weekday)][0].0) { weekList in
                     GridRow {
@@ -107,14 +106,12 @@ struct CalendarGridView: View {
                         
                         ForEach(weekdayNumberGridRowCells(weekList: weekList), id: \.text) { cell in
                             cell
-                            .background(Color.yellow)
                         }
                     }
                     .gridCellUnsizedAxes([.horizontal, .vertical])
-                    .frame(width: columnWidth)
+                    .frame(width: cellWidth, height: cellHeight)
                 }
             }
-            .background(Color.green)
         } else {
             return Text("this calendar is available on a device having iOS 16.0 or newer.")
         }
@@ -140,7 +137,7 @@ struct CalendarGridView: View {
 
 struct CalendarGridView_Previews: PreviewProvider {
     static var previews: some View {
-        CalendarGridView(year: 2022, month: 1, parentWidth: 300)
+        CalendarGridView(year: 2022, month: 1)
             .frame(width: 320)
     }
 }
