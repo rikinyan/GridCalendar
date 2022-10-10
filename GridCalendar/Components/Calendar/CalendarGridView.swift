@@ -33,39 +33,27 @@ extension Calendar {
     func weekday(date: Date) -> Weekday {
         Weekday.init(rawValue: self.component(.weekday, from: date)) ?? .none
     }
-}
-
-struct CalendarGridView: View {
-    let year: Int
-    let month: Int
     
-    private let dayCount: Int
-    private let calendar = Calendar(identifier: .gregorian)
-    
-    init(year: Int, month: Int) {
-        self.year = year
-        self.month = month
+    func calendarRows(year: Int, month: Int) -> [[(dayCount: Int, weekday: Weekday)]] {
+        var dateListSeparatedByTheWeek: [[(Int, Weekday)]] = []
         
-        dayCount = calendar.monthDayCount(year: year, month: month) ?? 0
-    }
-    
-    @available(iOS 16.0, *)
-    var calendarRows: [[(dayCount: Int, weekday: Calendar.Weekday)]] {
-        var dateListSeparatedByTheWeek: [[(Int, Calendar.Weekday)]] = []
+        guard let dayCount = monthDayCount(year: year, month: month) else {
+            return []
+        }
         
-        var insertedWeekList: [(Int, Calendar.Weekday)] = []
+        var insertedWeekList: [(Int, Weekday)] = []
         (1...dayCount).forEach { dayNumber in
-            // 土曜日であることを確認
-            let date = calendar.date(from: DateComponents(
-                calendar: calendar,
-                year: 2022,
+            let date = self.date(from: DateComponents(
+                calendar: self,
+                year: year,
                 month: month,
                 day: dayNumber
             )) ?? Date()
-            let weekday = calendar.weekday(date: date)
+            let weekday = self.weekday(date: date)
             
             insertedWeekList.append((dayNumber, weekday))
             
+            // 土曜日で区切る。
             if weekday == .Sat {
                 dateListSeparatedByTheWeek.append(insertedWeekList)
                 insertedWeekList = []
@@ -78,10 +66,20 @@ struct CalendarGridView: View {
         
         return dateListSeparatedByTheWeek
     }
+}
+
+struct CalendarGridView: View {
+    let year: Int
+    let month: Int
+    @State var parentWidth: CGFloat
     
+    private let calendar = Calendar(identifier: .gregorian)
+        
     var body: some View {
         if #available(iOS 16.0, *) {
-            return Grid(verticalSpacing: 10) {
+            let columnWidth = floor(parentWidth / 7)
+            
+            return Grid(horizontalSpacing: 0, verticalSpacing: 10) {
                 GridRow {
                     Text("日")
                         .foregroundColor(.red)
@@ -93,28 +91,36 @@ struct CalendarGridView: View {
                     Text("土")
                         .foregroundColor(.blue)
                 }
-                ForEach(calendarRows, id: \[(Int, Calendar.Weekday)][0].0) { weekList in
+                .gridCellUnsizedAxes([.vertical, .horizontal])
+                .frame(width: columnWidth)
+                .background(Color.cyan)
+                
+                ForEach(calendar.calendarRows(year: year, month: month), id: \[(Int, Calendar.Weekday)][0].0) { weekList in
                     GridRow {
-                        if leadingEmptyCell(weekList: weekList) {
-                            let firstRowEmptyCount: Int = 7 - weekList.count
+                        if hasLeadingEmptyCell(weekList: weekList) {
+                            let firstRowEmptyCount = 7 - weekList.count
                             ForEach(1 ... firstRowEmptyCount, id: \.self) { _ in
                                 Color.clear
-                                    .gridCellUnsizedAxes([.horizontal, .vertical])
+                                    .gridCellUnsizedAxes([.vertical])
                             }
                         }
                         
                         ForEach(weekdayNumberGridRowCells(weekList: weekList), id: \.text) { cell in
                             cell
+                            .background(Color.yellow)
                         }
                     }
+                    .gridCellUnsizedAxes([.horizontal, .vertical])
+                    .frame(width: columnWidth)
                 }
             }
+            .background(Color.green)
         } else {
             return Text("this calendar is available on a device having iOS 16.0 or newer.")
         }
     }
     
-    func leadingEmptyCell(weekList: [(Int, Calendar.Weekday)]) -> Bool {
+    func hasLeadingEmptyCell(weekList: [(Int, Calendar.Weekday)]) -> Bool {
         weekList[0].0 == 1 && weekList.count < 7
     }
     
@@ -134,6 +140,7 @@ struct CalendarGridView: View {
 
 struct CalendarGridView_Previews: PreviewProvider {
     static var previews: some View {
-        CalendarGridView(year: 2022, month: 1)
+        CalendarGridView(year: 2022, month: 1, parentWidth: 300)
+            .frame(width: 320)
     }
 }

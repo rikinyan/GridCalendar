@@ -11,8 +11,9 @@ struct CalendarGridCellView: View {
     var text: String
     var textColor: Color = .black
     var didTap: (() -> Void) = {}
+    var selected: Bool = false
     
-    var body: some View {        
+    var body: some View {
         return Button(action: didTap) {
             Text(text)
                 .foregroundColor(textColor)
