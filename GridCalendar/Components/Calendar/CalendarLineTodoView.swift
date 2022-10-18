@@ -8,25 +8,18 @@
 import SwiftUI
 
 struct CalendarLineTodoView: View {
-    let startDateFormatter = DateFormatter()
-    let endDateFormatter = DateFormatter()
+    let startDateFormatter = DateFormatter.todoStartDateFormatter
+    let endDateFormatter = DateFormatter.todoEndDateFormatter
     let todoTitle = "hello world!"
     let startDatetime = Date()
     let endDatetime = Date()
-    
-    init() {
-        startDateFormatter.dateFormat = "yyyy-mm-dd hh:mm:ss"
-        startDateFormatter.locale = Locale(identifier: "ja-JP")
-        endDateFormatter.dateFormat = "hh:mm:ss"
-        endDateFormatter.locale = Locale(identifier: "ja-JP")
-    }
     
     var body: some View {
         RoundedRectangle(cornerRadius: 10)
             .fill(Color.cyan)
             .frame(height: 100)
             .overlay {
-                VStack(spacing: 5) {
+                VStack(spacing: 0) {
                     Text("hello world")
                         .font(.title)
                         .frame(maxWidth: .infinity, alignment: .leading)

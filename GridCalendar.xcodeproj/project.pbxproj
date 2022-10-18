@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		A066DA7D28EF4339007B50F8 /* CalendarGridCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A066DA7C28EF4339007B50F8 /* CalendarGridCellView.swift */; };
 		A066DA8C28FC5E13007B50F8 /* CalendarLineTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A066DA8B28FC5E13007B50F8 /* CalendarLineTodoView.swift */; };
+		A066DA9028FE43AC007B50F8 /* TopCalendarPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A066DA8F28FE43AC007B50F8 /* TopCalendarPageView.swift */; };
+		A066DA9228FE4427007B50F8 /* TodoDetailPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A066DA9128FE4427007B50F8 /* TodoDetailPageView.swift */; };
+		A066DA9428FE444D007B50F8 /* TodoEditorPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A066DA9328FE444D007B50F8 /* TodoEditorPageView.swift */; };
+		A066DA9728FE4532007B50F8 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A066DA9628FE4532007B50F8 /* TodoItem.swift */; };
+		A066DA9A28FE48F2007B50F8 /* DateFomatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A066DA9928FE48F2007B50F8 /* DateFomatter+.swift */; };
+		A066DA9C28FE4D99007B50F8 /* Calendar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A066DA9B28FE4D99007B50F8 /* Calendar+.swift */; };
 		A094622728E97F9900008F64 /* GridCalendarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A094622628E97F9900008F64 /* GridCalendarApp.swift */; };
 		A094622928E97F9900008F64 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A094622828E97F9900008F64 /* ContentView.swift */; };
 		A094622B28E97F9B00008F64 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A094622A28E97F9B00008F64 /* Assets.xcassets */; };
@@ -19,6 +25,12 @@
 /* Begin PBXFileReference section */
 		A066DA7C28EF4339007B50F8 /* CalendarGridCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarGridCellView.swift; sourceTree = "<group>"; };
 		A066DA8B28FC5E13007B50F8 /* CalendarLineTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarLineTodoView.swift; sourceTree = "<group>"; };
+		A066DA8F28FE43AC007B50F8 /* TopCalendarPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCalendarPageView.swift; sourceTree = "<group>"; };
+		A066DA9128FE4427007B50F8 /* TodoDetailPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailPageView.swift; sourceTree = "<group>"; };
+		A066DA9328FE444D007B50F8 /* TodoEditorPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEditorPageView.swift; sourceTree = "<group>"; };
+		A066DA9628FE4532007B50F8 /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
+		A066DA9928FE48F2007B50F8 /* DateFomatter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFomatter+.swift"; sourceTree = "<group>"; };
+		A066DA9B28FE4D99007B50F8 /* Calendar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+.swift"; sourceTree = "<group>"; };
 		A094622328E97F9900008F64 /* GridCalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GridCalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A094622628E97F9900008F64 /* GridCalendarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCalendarApp.swift; sourceTree = "<group>"; };
 		A094622828E97F9900008F64 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -38,6 +50,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A066DA8E28FE4398007B50F8 /* Page */ = {
+			isa = PBXGroup;
+			children = (
+				A066DA8F28FE43AC007B50F8 /* TopCalendarPageView.swift */,
+				A066DA9128FE4427007B50F8 /* TodoDetailPageView.swift */,
+				A066DA9328FE444D007B50F8 /* TodoEditorPageView.swift */,
+			);
+			path = Page;
+			sourceTree = "<group>";
+		};
+		A066DA9528FE4524007B50F8 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				A066DA9628FE4532007B50F8 /* TodoItem.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		A066DA9828FE48CE007B50F8 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				A066DA9928FE48F2007B50F8 /* DateFomatter+.swift */,
+				A066DA9B28FE4D99007B50F8 /* Calendar+.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		A094621A28E97F9900008F64 = {
 			isa = PBXGroup;
 			children = (
@@ -57,6 +96,8 @@
 		A094622528E97F9900008F64 /* GridCalendar */ = {
 			isa = PBXGroup;
 			children = (
+				A066DA9528FE4524007B50F8 /* Domain */,
+				A066DA9828FE48CE007B50F8 /* Utils */,
 				A094623428E982B300008F64 /* Components */,
 				A094622628E97F9900008F64 /* GridCalendarApp.swift */,
 				A094622828E97F9900008F64 /* ContentView.swift */,
@@ -77,6 +118,7 @@
 		A094623428E982B300008F64 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				A066DA8E28FE4398007B50F8 /* Page */,
 				A094623528E98DC600008F64 /* Calendar */,
 			);
 			path = Components;
@@ -162,11 +204,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A066DA9428FE444D007B50F8 /* TodoEditorPageView.swift in Sources */,
+				A066DA9728FE4532007B50F8 /* TodoItem.swift in Sources */,
 				A066DA8C28FC5E13007B50F8 /* CalendarLineTodoView.swift in Sources */,
+				A066DA9228FE4427007B50F8 /* TodoDetailPageView.swift in Sources */,
+				A066DA9028FE43AC007B50F8 /* TopCalendarPageView.swift in Sources */,
 				A066DA7D28EF4339007B50F8 /* CalendarGridCellView.swift in Sources */,
+				A066DA9C28FE4D99007B50F8 /* Calendar+.swift in Sources */,
 				A094623728E98DE000008F64 /* CalendarGridView.swift in Sources */,
 				A094622928E97F9900008F64 /* ContentView.swift in Sources */,
 				A094622728E97F9900008F64 /* GridCalendarApp.swift in Sources */,
+				A066DA9A28FE48F2007B50F8 /* DateFomatter+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
